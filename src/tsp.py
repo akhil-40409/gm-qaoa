@@ -12,7 +12,12 @@ class TSPInstance:
     and visualizing the TSP graph.
     """
 
-    def __init__(self, num_cities: int, distance_matrix: Optional[np.ndarray] = None, seed: int = 42):
+    def __init__(
+        self,
+        num_cities: int,
+        distance_matrix: Optional[np.ndarray] = None,
+        seed: int = 42,
+    ):
         """Initialize the TSP instance.
 
         Args:
@@ -81,7 +86,11 @@ class TSPInstance:
         """Return the list of all feasible tour states (constrained subset)."""
         return self.all_tours
 
-    def visualize(self, tour: Optional[Tuple[int, ...]] = None, title: str = "TSP Instance"):
+    def visualize(
+        self,
+        tour: Optional[Tuple[int, ...]] = None,
+        title: str = "TSP Instance",
+    ):
         """Visualize the TSP instance as a graph.
 
         Args:
@@ -91,11 +100,18 @@ class TSPInstance:
         G = nx.Graph()
         # Add nodes
         for i in range(self.num_cities):
-            pos = self.coords[i] if hasattr(self, "coords") else (np.cos(2*np.pi*i/self.num_cities), np.sin(2*np.pi*i/self.num_cities))
+            pos = (
+                self.coords[i]
+                if hasattr(self, "coords")
+                else (
+                    np.cos(2 * np.pi * i / self.num_cities),
+                    np.sin(2 * np.pi * i / self.num_cities),
+                )
+            )
             G.add_node(i, pos=pos)
 
         pos = nx.get_node_attributes(G, "pos")
-        
+
         plt.figure(figsize=(8, 6))
         nx.draw_networkx_nodes(G, pos, node_size=700, node_color="skyblue")
         nx.draw_networkx_labels(G, pos, font_size=12, font_family="sans-serif")
@@ -103,13 +119,27 @@ class TSPInstance:
         # Draw all edges with low alpha
         for i in range(self.num_cities):
             for j in range(i + 1, self.num_cities):
-                nx.draw_networkx_edges(G, pos, edgelist=[(i, j)], width=1.0, alpha=0.2, edge_color="gray")
+                nx.draw_networkx_edges(
+                    G,
+                    pos,
+                    edgelist=[(i, j)],
+                    width=1.0,
+                    alpha=0.2,
+                    edge_color="gray",
+                )
 
         # Highlight tour edges if provided
         if tour:
-            tour_edges = [(tour[i], tour[i+1]) for i in range(len(tour)-1)]
+            tour_edges = [(tour[i], tour[i + 1]) for i in range(len(tour) - 1)]
             tour_edges.append((tour[-1], tour[0]))
-            nx.draw_networkx_edges(G, pos, edgelist=tour_edges, width=2.5, alpha=0.8, edge_color="orange")
+            nx.draw_networkx_edges(
+                G,
+                pos,
+                edgelist=tour_edges,
+                width=2.5,
+                alpha=0.8,
+                edge_color="orange",
+            )
 
         plt.title(title)
         plt.axis("off")

@@ -7,7 +7,7 @@ from typing import List, Union, Any
 class GroverAlgorithm:
     """A modular implementation of Grover's Algorithm.
 
-    This class provides tools to construct, iterate, and execute Grover's 
+    This class provides tools to construct, iterate, and execute Grover's
     search algorithm with support for multiple target states and JAX integration.
     """
 
@@ -26,12 +26,14 @@ class GroverAlgorithm:
         for wire in self.wires:
             qml.Hadamard(wires=wire)
 
-    def oracle(self, target_states: List[Union[str, List[int], jnp.ndarray]]) -> None:
+    def oracle(
+        self, target_states: List[Union[str, List[int], jnp.ndarray]]
+    ) -> None:
         """Apply the oracle to flip the sign of the target states.
 
         Args:
-            target_states: A list of target states to search for. 
-                           Can be bitstrings ("101"), lists ([1, 0, 1]), 
+            target_states: A list of target states to search for.
+                           Can be bitstrings ("101"), lists ([1, 0, 1]),
                            or JAX/NumPy arrays.
         """
         for target in target_states:
@@ -56,9 +58,13 @@ class GroverAlgorithm:
         if num_targets == 0:
             return 0
         # Optimal iterations formula: floor(pi/4 * sqrt(N/M))
-        return jnp.floor(jnp.sqrt(self.N / num_targets) * jnp.pi / 4).astype(int)
+        return jnp.floor(jnp.sqrt(self.N / num_targets) * jnp.pi / 4).astype(
+            int
+        )
 
-    def circuit(self, target_states: List[Union[str, List[int], jnp.ndarray]]) -> None:
+    def circuit(
+        self, target_states: List[Union[str, List[int], jnp.ndarray]]
+    ) -> None:
         """Construct the complete Grover circuit.
 
         Args:
@@ -75,7 +81,9 @@ class GroverAlgorithm:
             self.oracle(target_states)
             self.diffuser()
 
-    def get_qnode(self, device: Any = None, interface: str = "jax") -> qml.QNode:
+    def get_qnode(
+        self, device: Any = None, interface: str = "jax"
+    ) -> qml.QNode:
         """Create a PennyLane QNode for this Grover instance.
 
         Args:
