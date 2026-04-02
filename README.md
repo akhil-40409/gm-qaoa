@@ -1,9 +1,10 @@
 # GM-QAOA for Traveling Salesperson Problem
+(Work in Progress)
 
 Implementation and benchmarking of Grover-mixer QAOA (GM-QAOA) for the Traveling Salesperson Problem using PennyLane backends (`default.qubit`, `lightning.qubit`, and `catalyst`).
 
 This project implements the algorithms described in the paper:
-**[Grover-mixer QAOA: A quantum algorithm for constrained optimization](https://arxiv.org/abs/2005.00941)** (Bärtschi and Eidenbenz, 2020).
+**[Grover-mixer QAOA: A quantum algorithm for constrained optimization](https://arxiv.org/abs/2006.00354)** (Bärtschi and Eidenbenz, 2020).
 
 ## Features
 - **Grover-Mixer QAOA**: Implementation of search-space restricted mixers for constrained optimization.
